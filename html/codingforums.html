@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<style>
+			* {
+			box-sizing: border-box;
+			}
+			:root {
+			--fixed-height-layout-2: 200px;
+			}
+			html,
+			body {
+			margin: 0;
+			padding: 0;
+			}
+			body {
+			font-family: Arial;
+			color: red;
+			background-color: whitesmoke;
+			}
+			.split {
+			height: 100dvh; /* in <head> needs <meta name="viewport" ...> */
+			width: 50dvw;   /* in <head> needs <meta name="viewport" ...> */
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			overflow-x: hidden;
+
+			background-color: lightcoral; /* for demonstration */
+			}
+
+			.left {
+			left: 0;
+			}
+			.right {
+			right: 0;
+			}
+			.layout-1,
+			.layout-2,
+			.layout-3 {
+			padding: .5rem;
+			}
+			.layout-1 {
+			height: auto;
+			overflow-x: auto;
+			}
+			.layout-2 {
+			height: var(--fixed-height-layout-2);
+			background-color: lightsalmon; /* for demonstration */
+			}
+			.layout-3 {
+			height: calc(100% - var(--fixed-height-layout-2));
+			overflow-x: auto;
+			background-color: lightskyblue; /* for demonstration */
+			}  
+		</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body>
+    <div class="split left layout-1">
+      Chat history
+
+
+
+ChatGPT
+
+Share
+
+User
+You said:
+how to convert audio to text using chatgpt using python
+ChatGPT said:
+ChatGPT
+To convert audio to text using Python, you will need to use a speech-to-text library like SpeechRecognition in combination with ChatGPT for further text processing or analysis. Here's a simple step-by-step guide to convert audio to text:
+
+Step 1: Install necessary libraries
+You need the SpeechRecognition library for audio-to-text conversion. Additionally, you may want to install pyaudio for microphone support (if you plan to record audio directly).
+
+pip install SpeechRecognition pyaudio
+Step 2: Convert Audio to Text
+Here's a basic Python script that uses the SpeechRecognition library to convert an audio file into text:
+
+import speech_recognition as sr
+
+# Initialize recognizer
+recognizer = sr.Recognizer()
+
+# Load the audio file
+audio_file = "path_to_audio_file.wav"  # replace with your file path
+
+# Use an audio file as the source
+with sr.AudioFile(audio_file) as source:
+    audio_data = recognizer.record(source)
+
+# Recognize the speech using Google's speech recognition API
+try:
+    text = recognizer.recognize_google(audio_data)
+    print("Text from audio: ", text)
+except sr.UnknownValueError:
+    print("Could not understand the audio")
+except sr.RequestError:
+    print("Request failed, check your internet connection")
+Explanation:
+speech_recognition.Recognizer: This class is used to recognize speech.
+recognizer.record(): This records the audio from the given file or microphone.
+recognizer.recognize_google(): This method sends the audio data to Google's speech-to-text API to transcribe the speech into text.
+Step 3: Use ChatGPT to Process or Analyze the Text
+Once you've converted the audio to text, you can send the text to ChatGPT for further processing. Here's how you can integrate it with ChatGPT:
+
+import openai
+
+openai.api_key = 'your-openai-api-key'
+
+# Now use the transcribed text with ChatGPT
+response = openai.Completion.create(
+    model="gpt-4",
+    prompt=f"Analyze the following text: {text}",
+    max_tokens=100
+)
+
+print("ChatGPT response:", response.choices[0].text.strip())
+Notes:
+You need an internet connection for both Google's speech-to-text service and ChatGPT.
+You can replace recognize_google with other APIs supported by SpeechRecognition, such as Microsoft or IBM Watson, depending on your preference.
+With this setup, you can convert audio into text and then use ChatGPT to analyze or process that text further.
+
+
+
+
+
+
+You said:
+how to convert audio to text
+ChatGPT said:
+ChatGPT
+To convert audio to text, you can use a variety of tools and libraries depending on your needs. Below are the most common methods:
+
+Method 1: Using Python and Libraries
+Option A: Using SpeechRecognition Library
+Installation:
+pip install SpeechRecognition pyaudio
+Code Example:
+import speech_recognition as sr
+
+# Initialize recognizer
+recognizer = sr.Recognizer()
+
+# Specify the audio file
+audio_file = "path_to_audio_file.wav"  # Replace with the path to your audio file
+
+# Load and process the audio
+with sr.AudioFile(audio_file) as source:
+    audio_data = recognizer.record(source)  # Read the entire audio file
+
+# Perform speech-to-text
+try:
+    text = recognizer.recognize_google(audio_data)
+    print("Transcribed text:", text)
+except sr.UnknownValueError:
+    print("Could not understand the audio")
+except sr.RequestError:
+    print("API unavailable or internet issue")
+Option B: Using pydub and External APIs
+If your audio file is not in .wav format, you can use pydub to convert it:
+
+Installation:
+pip install pydub ffmpeg SpeechRecognition
+Code Example:
+from pydub import AudioSegment
+import speech_recognition as sr
+
+# Convert mp3 to wav
+audio = AudioSegment.from_mp3("path_to_audio_file.mp3")
+audio.export("converted_audio.wav", format="wav")
+
+# Transcribe using SpeechRecognition
+recognizer = sr.Recognizer()
+with sr.AudioFile("converted_audio.wav") as source:
+    audio_data = recognizer.record(source)
+    text = recognizer.recognize_google(audio_data)
+    print("Transcribed text:", text)
+Method 2: Using Cloud Speech-to-Text APIs
+Popular APIs:
+Google Cloud Speech-to-Text
+
+Supports multiple languages and dialects.
+Handles noisy audio.
+Steps:
+Set up a Google Cloud account.
+Use the google-cloud-speech Python library.
+pip install google-cloud-speech
+Code Example:
+from google.cloud import speech
+import io
+
+client = speech.SpeechClient()
+
+# Load audio file
+with io.open("path_to_audio_file.wav", "rb") as audio_file:
+    content = audio_file.read()
+
+audio = speech.RecognitionAudio(content=content)
+config = speech.RecognitionConfig(
+    encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+    sample_rate_hertz=16000,
+    language_code="en-US",
+)
+
+# Perform the transcription
+response = client.recognize(config=config, audio=audio)
+
+for result in response.results:
+    print("Transcription:", result.alternatives[0].transcript)
+Other Cloud Services:
+IBM Watson Speech to Text
+Amazon Transcribe
+Microsoft Azure Speech Services
+Method 3: Using Online Tools or Apps
+Websites like Otter.ai, Sonix, and Rev allow you to upload audio files for transcription.
+They are user-friendly but often require a subscription for large files or advanced features.
+Best Approach Based on Needs:
+Small-scale or offline tasks: Use Python libraries like SpeechRecognition.
+Large-scale, accurate transcription: Use cloud APIs like Google Cloud or AWS Transcribe.
+Quick and simple: Use online tools.
+Let me know which method you're interested in, and I can guide you further!
+
+
+
+
+
+
+You said:
+convert mp3 file to text
+ChatGPT said:
+ChatGPT
+To convert an MP3 file to text, you'll typically need to:
+
+Convert the MP3 file to a WAV format (since most speech recognition tools work with WAV files).
+Use a speech-to-text library or API to transcribe the audio into text.
+Here's a step-by-step guide in Python:
+
+Step 1: Install Required Libraries
+You need the following Python libraries:
+
+pydub to convert MP3 to WAV.
+SpeechRecognition to perform the transcription.
+Install them using pip:
+
+pip install pydub SpeechRecognition ffmpeg
+Step 2: Convert MP3 to WAV and Transcribe
+Here's the complete Python script:
+
+from pydub import AudioSegment
+import speech_recognition as sr
+
+# Step 1: Convert MP3 to WAV
+mp3_file = "path_to_audio_file.mp3"  # Replace with your MP3 file path
+wav_file = "converted_audio.wav"    # Output WAV file
+
+# Convert MP3 to WAV using pydub
+audio = AudioSegment.from_mp3(mp3_file)
+audio.export(wav_file, format="wav")
+
+# Step 2: Transcribe WAV to Text
+recognizer = sr.Recognizer()
+
+# Load the WAV file
+with sr.AudioFile(wav_file) as source:
+    print("Loading audio file...")
+    audio_data = recognizer.record(source)  # Read the entire file
+
+# Perform speech-to-text
+try:
+    print("Transcribing audio...")
+    text = recognizer.recognize_google(audio_data)
+    print("Transcription:\n", text)
+except sr.UnknownValueError:
+    print("Speech was unclear, could not transcribe.")
+except sr.RequestError as e:
+    print(f"Could not request results from the service; {e}")
+How It Works:
+pydub.AudioSegment.from_mp3(): Converts the MP3 file to WAV.
+recognizer.recognize_google(): Uses Google's free speech-to-text API to transcribe the audio.
+Step 3: (Optional) Use Cloud APIs for Better Accuracy
+If you need more accuracy or support for large files, consider using:
+
+Google Cloud Speech-to-Text
+Amazon Transcribe
+Microsoft Azure Speech Service
+These services support MP3 files directly and are optimized for different languages and accents.
+
+Limitations of Local SpeechRecognition:
+May struggle with long files or poor audio quality.
+Google’s free API has limitations for usage and performance.
+Let me know if you want to integrate with a cloud service or need help troubleshooting!
+
+
+2/2
+
+You said:
+convert mp3 file to text using chatgpt
+ChatGPT said:
+ChatGPT
+To convert an MP3 file to text with the help of ChatGPT, you need to follow these steps:
+
+Step 1: Preprocess the Audio (Convert MP3 to Text)
+ChatGPT itself cannot process audio files directly, so you'll need to transcribe the audio file first using a speech-to-text library or API. Then, you can use ChatGPT for further analysis or processing of the text.
+
+Step 2: Convert MP3 to Text Using Python
+Tools:
+SpeechRecognition: For transcription.
+pydub: To convert MP3 to WAV, as many tools work better with WAV.
+Code:
+from pydub import AudioSegment
+import speech_recognition as sr
+
+# Step 1: Convert MP3 to WAV
+def convert_mp3_to_wav(mp3_path, wav_path):
+    audio = AudioSegment.from_mp3(mp3_path)
+    audio.export(wav_path, format="wav")
+
+# Step 2: Transcribe WAV to Text
+def transcribe_audio_to_text(wav_path):
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(wav_path) as source:
+        audio_data = recognizer.record(source)  # Read entire audio file
+    try:
+        return recognizer.recognize_google(audio_data)
+    except sr.UnknownValueError:
+        return "Audio is unclear."
+    except sr.RequestError as e:
+        return f"Error with the transcription service: {e}"
+
+# Paths to files
+mp3_file = "path_to_audio_file.mp3"  # Replace with your MP3 file
+wav_file = "converted_audio.wav"     # Temporary WAV file
+
+# Convert and transcribe
+convert_mp3_to_wav(mp3_file, wav_file)
+transcribed_text = transcribe_audio_to_text(wav_file)
+print("Transcribed Text:", transcribed_text)
+Step 3: Use ChatGPT to Process the Transcribed Text
+Once you have the transcribed text, you can send it to ChatGPT for further processing or analysis.
+
+Example:
+import openai
+
+# Set up OpenAI API key
+openai.api_key = "your_openai_api_key"
+
+# Pass the transcribed text to ChatGPT
+def analyze_with_chatgpt(text):
+    response = openai.Completion.create(
+        model="gpt-4",
+        prompt=f"Analyze the following text:\n\n{text}",
+        max_tokens=300
+    )
+    return response.choices[0].text.strip()
+
+# Analyze the transcribed text
+chatgpt_response = analyze_with_chatgpt(transcribed_text)
+print("ChatGPT Analysis:", chatgpt_response)
+Explanation of the Workflow:
+Convert MP3 to WAV: Done using pydub for compatibility.
+Transcribe Audio to Text: Handled by SpeechRecognition (or optionally a cloud API for better accuracy).
+Process Text with ChatGPT: Use ChatGPT for tasks like summarization, analysis, or formatting the transcription.
+Alternatives:
+If you want better transcription accuracy, you can replace SpeechRecognition with a cloud API like:
+
+Google Cloud Speech-to-Text
+Amazon Transcribe
+Microsoft Azure Speech Service
+Let me know if you need help setting up any of these tools!
+
+
+
+
+
+
+You said:
+convert an MP3 file to text with the help of ChatGPT using python
+ChatGPT said:
+ChatGPT
+To convert an MP3 file to text using Python and integrate ChatGPT, follow these steps:
+
+Overview
+Transcribe the MP3 file: Use a speech-to-text library or API to convert audio to text (e.g., Google Speech API via SpeechRecognition).
+Process the transcribed text: Use ChatGPT to analyze or manipulate the transcription.
+Step 1: Install Required Libraries
+Install the required packages:
+
+pip install pydub SpeechRecognition openai ffmpeg
+Step 2: Write the Python Script
+Here's a complete Python script:
+
+from pydub import AudioSegment
+import speech_recognition as sr
+import openai
+
+# Set your OpenAI API key
+openai.api_key = "your_openai_api_key"
+
+# Step 1: Convert MP3 to WAV
+def convert_mp3_to_wav(mp3_path, wav_path):
+    print("Converting MP3 to WAV...")
+    audio = AudioSegment.from_mp3(mp3_path)
+    audio.export(wav_path, format="wav")
+    print("Conversion completed.")
+
+# Step 2: Transcribe WAV to Text
+def transcribe_audio_to_text(wav_path):
+    print("Transcribing audio...")
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(wav_path) as source:
+        audio_data = recognizer.record(source)
+    try:
+        text = recognizer.recognize_google(audio_data)
+        print("Transcription completed.")
+        return text
+    except sr.UnknownValueError:
+        return "Audio is unclear."
+    except sr.RequestError as e:
+        return f"Error with the transcription service: {e}"
+
+# Step 3: Process Text with ChatGPT
+def process_text_with_chatgpt(text):
+    print("Processing text with ChatGPT...")
+    response = openai.Completion.create(
+        model="gpt-4",  # Use the latest available GPT model
+        prompt=f"Analyze the following text:\n\n{text}",
+        max_tokens=300
+    )
+    return response.choices[0].text.strip()
+
+# Main function to integrate the steps
+def main(mp3_file_path):
+    wav_file_path = "temp_audio.wav"  # Temporary WAV file
+    convert_mp3_to_wav(mp3_file_path, wav_file_path)
+    transcribed_text = transcribe_audio_to_text(wav_file_path)
+    
+    if transcribed_text:
+        print("Transcribed Text:", transcribed_text)
+        chatgpt_response = process_text_with_chatgpt(transcribed_text)
+        print("ChatGPT Response:\n", chatgpt_response)
+    else:
+        print("No transcription available.")
+
+# Specify the path to your MP3 file
+mp3_file = "path_to_your_audio_file.mp3"  # Replace with your MP3 file path
+
+# Run the main function
+main(mp3_file)
+Explanation
+Convert MP3 to WAV:
+
+MP3 files are converted to WAV using pydub because most transcription libraries handle WAV files better.
+Ensure ffmpeg is installed on your system for pydub to work.
+Transcribe Audio to Text:
+
+The SpeechRecognition library is used to transcribe the WAV file using Google Speech Recognition.
+It works offline for small-scale tasks but requires an internet connection for the Google API.
+Process Text with ChatGPT:
+
+The transcribed text is sent to ChatGPT using the OpenAI API.
+ChatGPT can analyze, summarize, or modify the transcription.
+Integration:
+
+The workflow ties everything together: conversion, transcription, and text processing.
+Example Output
+MP3 file is converted to WAV.
+
+Audio is transcribed into:
+
+"Hello, this is an example transcription of an MP3 file."
+ChatGPT processes the text:
+
+"This text appears to be an example transcription. Let me know how you'd like it summarized or analyzed."
+Dependencies
+FFmpeg: Install it here.
+OpenAI API Key: Obtain it from OpenAI.
+Let me know if you need further clarification or enhancements!
+
+
+
+
+
+
+
+
+
+
+
+
+
+ChatGPT can make mistakes. Check important info.
+?
+
+    </div>
+    <div class="split right">
+      <div class="layout-2">
+        some content layout 2
+      </div>
+      <div class="layout-3">
+        .... long content ... layout-3
+		Skip to main content
+Stack Overflow
+Products
+OverflowAI
+Search…
+Flaviu_'s user avatar
+Flaviu_
+1,346, 1,346 reputation
+●2020 silver badges●3636 bronze badges
+Review (needs attention)
+Home
+Questions
+Staging Ground
+Tags
+Saves
+Users
+Companies
+Labs
+Jobs
+Discussions
+Collectives
+Communities for your favorite technologies. Explore all Collectives
+
+Teams
+Ask questions, find answers and collaborate at work with Stack Overflow for Teams. Explore Teams
+
+Looking for your Teams?
+
+Why can't my python project find ffmpeg even though it's installed in the Python library?
+Asked 2 months ago
+Modified 2 months ago
+Viewed 154 times
+Vote
+
+I am encountering an issue where my project cannot find ffmpeg, even though it is installed in the Python library. Here are the details:
+
+When running the script, I get the following error message:
+
+D:\Python\Lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+Additionally, I receive this error message when trying to prepare the dataset:
+
+
+
+from pydub import AudioSegment
+import os
+
+
+# Specify the path to ffmpeg
+ffmpeg_path = "D:\\Python-code\\ffmpeg-master-latest-win64-gpl\\bin\\ffmpeg.exe"
+AudioSegment.ffmpeg = ffmpeg_path
+
+def convert_flac_to_wav(flac_file, wav_file):
+    sound = AudioSegment.from_file(flac_file, format="flac")
+    sound.export(wav_file, format="wav")
+
+if __name__ == "__main__":
+    # Get the current working directory
+    current_dir = os.getcwd()
+    print(f"Current directory: {current_dir}")
+
+    # Get the parent directory of the current working directory
+    root_dir = os.path.dirname(current_dir)
+    print(f"Root directory: {root_dir}")
+
+    # Construct the path
+    voice_wavs = os.path.join(root_dir, 'data', 'voice', 'wav')
+    print(f"Voice WAVs directory: {voice_wavs}")
+
+    # Ensure the directory exists
+    if not os.path.exists(voice_wavs):
+        os.makedirs(voice_wavs)
+        print(f"Created directory: {voice_wavs}")
+    else:
+        print(f"Directory exists: {voice_wavs}")
+
+    # Get all .flac files
+    # Ensure .flac files are located in the current working directory
+    flac_files = [f for f in os.listdir(current_dir) if f.endswith('.flac')]
+    print(f"FLAC files found: {flac_files}")
+
+    # Convert each .flac file
+    for flac_file in flac_files:
+        input_flac = os.path.join(current_dir, flac_file)
+        output_wav = os.path.join(current_dir, flac_file.replace('.flac', '.wav'))
+        convert_flac_to_wav(input_flac, output_wav)
+
+Despite these steps, the project continues to report that ffmpeg cannot be found. Could someone help me identify what might be causing this issue and how to resolve it?
+
+pythonffmpeg
+Share
+Edit
+Follow
+Flag
+asked Oct 19, 2024 at 10:00
+Jieyu Zhang's user avatar
+Jieyu Zhang
+1122 bronze badges
+Add a comment
+Start a bounty
+3 Answers
+Sorted by:
+
+Highest score (default)
+Vote
+
+Could someone help me identify what might be causing this issue
+
+pydub github page suggest doing following in order to debug
+
+import logging
+l = logging.getLogger("pydub.converter")
+l.setLevel(logging.DEBUG)
+l.addHandler(logging.StreamHandler())
+# here do what you want with AudioSegment
+this should reveal what is actually called.
+
+D:\Python\Lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+This is not error, but warning, generally this mean some anomaly was detected but program is still able to work, whilst error does result in halt.
+
+Share
+Edit
+Follow
+Flag
+answered Oct 19, 2024 at 11:18
+Daweo's user avatar
+Daweo
+36.1k33 gold badges1717 silver badges3131 bronze badges
+Add a comment
+Vote
+
+You can try to add the FFmpeg path to the system path temporarily:
+
+import os
+
+os.environ["PATH"] += os.pathsep + "D:\\Python-code\\ffmpeg-master-latest-win64-gpl\\bin"
+Do this once when you start Python (or add the path to the system path prior to running Python if you wish to make this permanent).
+
+Then you shouldn't need to set AudioSegment.ffmpeg (presumably that's the only issue).
+
+Alternately you can use my ffmpeg-downloader for an easily updatable method . See this SO post.
+
+Share
+Edit
+Follow
+Flag
+answered Oct 20, 2024 at 1:34
+kesh's user avatar
+kesh
+5,42822 gold badges1414 silver badges2525 bronze badges
+Add a comment
+Vote
+
+AudioSegment seems to be problematic in all the bad ways. If all you want to do is convert flac files to wav using ffmpeg, I suggest using the built-in subprocess module to call ffmpeg.exe. The modified code should look something like this:
+
+import os
+import subprocess
+
+# Specify the path to ffmpeg
+ffmpeg_path = r"D:\Python-code\ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe"
+
+def convert_flac_to_wav(flac_file, wav_file):
+    subprocess.call([ffmpeg_path, '-i', flac_file, wav_file])
+
+if __name__ == "__main__":
+    # Unchanged
+Share
+Edit
+Follow
+Flag
+answered Oct 19, 2024 at 10:41
+Iskenderov Andrei's user avatar
+Iskenderov Andrei
+111 bronze badge
+Add a comment
+Your Answer
+
+
+Community wiki
+Not the answer you're looking for? Browse other questions tagged pythonffmpeg or ask your own question.
+The Overflow Blog
+Failing fast at scale: Rapid prototyping at Intuit
+“Data is the key”: Twilio’s Head of R&D on the need for good data
+Featured on Meta
+The December 2024 Community Asks Sprint has been moved to March 2025 (and...
+Voting experiment to encourage people who rarely vote to upvote
+Hot Meta Posts
+24
+How to handle code-only answers that are entirely copied, verbatim, from the...
+Linked
+14
+"Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning
+Related
+1453
+How do I find the location of my Python site-packages directory?
+1374
+Why do people write "#!/usr/bin/env python" on the first line of a Python script?
+3
+Pydub can't find ffmpeg although it's installed and in path
+0
+PHP cannot run a python script that uses ffmpeg (when the python script runs in terminal)
+842
+How to find out the number of CPUs using python
+0
+Python - why do I get this ffprobe error?
+663
+Find full path of the Python interpreter (Python executable)?
+1
+installed ffmpeg not detected. Can't convert audio (python 2.7, mac os x)
+1
+Including ffmpeg in Django project
+Hot Network Questions
+Does Steam back up all game files for all games?
+Is the finance charge reduced if the loan is paid off quicker?
+How to interact with Dead Magic demiplane?
+What sense does it make to use a Vault?
+What is the special significance of laying the lost& found sheep on the shepherd ' s shoulders?
+Does a consistent heuristic have value 0 on a goal state?
+Heaven and earth have not passed away, so how are Christians no longer under the law, but under grace?
+Unable to install libncurses5 in Ubuntu Server 24.04
+Computing π(x): the combinatorial method
+RS-485 Transmission problem (Modbus RTU)
+Dimensional analysis and integration
+Should I REALLY keep all my credit cards totally paid off every month?
+What does a "forming" black hole look like?
+Is it possible to make a flight simulator that can model aerobatics and stalls accurately?
+What movie has a small town invaded by spiked metal balls?
+Is the Paillier cryptosystem key-committing?
+Is there a way to confirm your Alipay works before arriving in China?
+White ran out of time. Result?
+Is it idiomatic to say "I just played" or "I was just playing" in response to the question "What did you do this morning"?
+How would 0 visibility combat change weapon choice and military strategy
+Pell Puzzle: A homebrewed grid deduction puzzle
+How do I get the drain plug out of the sink?
+How can I control LED brightness from an MCU without using PWM
+Why am I not able to see mounted folder with Docker-Desktop with WSL2?
+ Question feed
+
+Stack Overflow
+Questions
+Help
+Chat
+Products
+Teams
+Advertising
+Talent
+Company
+About
+Press
+Work Here
+Legal
+Privacy Policy
+Terms of Service
+Contact Us
+Cookie Settings
+Cookie Policy
+Stack Exchange Network
+Technology
+Culture & recreation
+Life & arts
+Science
+Professional
+Business
+API
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram<br>
+Site design / logo © 2025 Stack Exchange Inc; user contributions licensed under CC BY-SA . rev 2025.1.7.20880
+      </div>
+    </div>
+  </body>
+</html>
