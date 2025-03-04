@@ -9,7 +9,6 @@ Examples:
 
 using namespace domtree;
 
-
 std::stirng html_file{"<html><body>abc</div></html>"};
 CDomTree dt{};
 dt.Parse(html_file);	// now all html tags reside in CDomTree structure
