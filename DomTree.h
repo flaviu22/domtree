@@ -210,8 +210,48 @@ namespace domtree
 	{
 	public:
 		CDomTree() = default;
-		CDomTree(const CDomTree& rhs) = delete;
-		CDomTree& operator=(const CDomTree& rhs) = delete;
+		CDomTree(const CDomTree& rhs)
+			: m_currentTag(rhs.m_currentTag)
+			, m_data(rhs.m_data)
+			, m_tags(rhs.m_tags)
+			, m_tables(rhs.m_tables)
+			, m_bufferIndex(rhs.m_bufferIndex)
+			, m_svg(rhs.m_svg)
+			, m_style(rhs.m_style)
+			, m_script(rhs.m_script)
+			, m_td(rhs.m_td)
+			, m_tr(rhs.m_tr)
+			, m_table(rhs.m_table)
+			, m_p(rhs.m_p)
+			, m_a(rhs.m_a)
+			, m_dl(rhs.m_dl)
+			, m_dt(rhs.m_dt)
+			, m_label(rhs.m_label)
+		{
+		}
+		CDomTree& operator=(const CDomTree& rhs)
+		{
+			if (this != &rhs)
+			{
+				m_currentTag = rhs.m_currentTag;
+				m_data = rhs.m_data;
+				m_tags = rhs.m_tags;
+				m_tables = rhs.m_tables;
+				m_bufferIndex = rhs.m_bufferIndex;
+				m_svg = rhs.m_svg;
+				m_style = rhs.m_style;
+				m_script = rhs.m_script;
+				m_td = rhs.m_td;
+				m_tr = rhs.m_tr;
+				m_table = rhs.m_table;
+				m_p = rhs.m_p;
+				m_a = rhs.m_a;
+				m_dl = rhs.m_dl;
+				m_dt = rhs.m_dt;
+				m_label = rhs.m_label;
+			}
+			return *this;
+		}
 		CDomTree(CDomTree&& rhs) noexcept
 			: m_currentTag(std::move(rhs.m_currentTag))
 			, m_data(std::move(rhs.m_data))
@@ -226,6 +266,8 @@ namespace domtree
 			, m_table(std::move(rhs.m_table))
 			, m_p(std::move(rhs.m_p))
 			, m_a(std::move(rhs.m_a))
+			, m_dl(std::move(rhs.m_dl))
+			, m_dt(std::move(rhs.m_dt))
 			, m_label(std::move(rhs.m_label))
 		{
 			rhs.m_currentTag = nullptr;
@@ -238,6 +280,8 @@ namespace domtree
 			rhs.m_table = TagState::closed;
 			rhs.m_p = TagState::closed;
 			rhs.m_a = TagState::closed;
+			rhs.m_dl = TagState::closed;
+			rhs.m_dt = TagState::closed;
 			rhs.m_label = TagState::closed;
 		}
 		CDomTree& operator=(CDomTree&& rhs) noexcept
@@ -257,6 +301,8 @@ namespace domtree
 				m_table = std::move(rhs.m_table);
 				m_p = std::move(rhs.m_p);
 				m_a = std::move(rhs.m_a);
+				m_dl = std::move(rhs.m_dl);
+				m_dt = std::move(rhs.m_dt);
 				m_label = std::move(rhs.m_label);
 
 				rhs.m_currentTag = nullptr;
@@ -269,6 +315,8 @@ namespace domtree
 				rhs.m_table = TagState::closed;
 				rhs.m_p = TagState::closed;
 				rhs.m_a = TagState::closed;
+				rhs.m_dl = TagState::closed;
+				rhs.m_dt = TagState::closed;
 				rhs.m_label = TagState::closed;
 			}
 			return *this;
