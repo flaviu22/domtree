@@ -5,6 +5,7 @@ A C++ header only library for parsing a `HTML` source.  It is designed to parse 
 **Public Methods**
 
 **Parsing:**
+
 `void Parse(const std::string& data)`: Parses input data by copying it.
 `void Parse(std::string&& data)`: Parses input data by moving it.
 
