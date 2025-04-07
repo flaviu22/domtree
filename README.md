@@ -1,7 +1,22 @@
 ## Overview
 
-A C++ header only library for parsing a HTML source.
+A C++ header only library for parsing a HTML source.  It is designed to parse and represent HTML/XML-like data structures. The class CDomTree represents the DOM tree and provides parsing functionality. The CDomTree class parses input data (HTML/XML) into a hierarchical DOM tree structure, allowing manipulation and serialization of the data.
 
+Public Methods
+
+Parsing:
+void Parse(const std::string& data): Parses input data by copying it.
+void Parse(std::string&& data): Parses input data by moving it.
+
+Serialization:
+std::string GetData() const: Serializes the DOM tree into a formatted string.
+Accessors:
+
+std::vector<std::shared_ptr<Tag>>& GetTags(): Returns a reference to the root tags (modifiable).
+const std::vector<std::shared_ptr<Tag>>& GetTags() const: Returns a const reference to the root tags.
+
+Summary
+The CDomTree class is a robust and extensible DOM tree parser that supports parsing, correctness validation, and serialization of HTML/XML-like data. It ensures proper handling of nested tags, multi-line tags, and special cases, making it suitable for building or manipulating DOM structures programmatically.
 
 ## Getting Started
 
