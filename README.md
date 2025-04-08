@@ -1,6 +1,6 @@
 ## Overview
 
-A C++ header only library for parsing a `HTML` source.  It is designed to parse and represent HTML/XML-like data structures. The class `CDomTree` represents the DOM tree and provides parsing functionality. The `CDomTree` class parses input data (HTML/XML) into a hierarchical DOM tree structure, allowing manipulation and serialization of the data.
+A C++ header only library for parsing a `HTML` source.  It is designed to parse and represent HTML data structures. The class `CDomTree` represents the DOM tree and provides parsing functionality. The `CDomTree` class parses input data `HTML` into a hierarchical DOM tree structure, allowing manipulation and serialization of the data.
 
 **Public Methods**
 
