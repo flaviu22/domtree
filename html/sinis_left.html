@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<meta name="generator" content=""/>
+		<link rel="StyleSheet" href="dtree.css" type="text/css"/>
+		<script type="text/javascript" src="dtree.js">
+		</script>
+	</head>
+	<body bgcolor="#000000">
+		<div class="dtree">
+			<p>
+				<a href="javascript: d.openAll();">Open all</a>
+				|
+				<a href="javascript: d.closeAll();">Close all</a>
+			</p>
+			<script type="text/javascript">
+				<!--
+d = new dTree("d");
+d.add(0,-1,"Programming Windows with MFC, Second Edition","");
+d.add(1,0,"Cover","static/ch00.htm");
+d.add(2,1,"LOC Page","static/CH00A.HTM");
+d.add(3,0,"Acknowledgments","static/ch00b.htm");
+d.add(4,0,"Introduction","static/ch00c.htm");
+d.add(5,0,"Part I: Fundamentals of Windows and MFC","");
+d.add(6,5,"Chapter 1 -- Hello, MFC","static/ch01a.htm");
+d.add(7,6,"The Windows Programming Model","static/ch01b.htm");
+d.add(8,6,"Introducing MFC","static/ch01c.htm");
+d.add(9,6,"Your First MFC Application","static/ch01d.htm");
+d.add(10,5,"Chapter 2 -- Drawing in a Window","static/ch02a.htm");
+d.add(11,10,"The Windows GDI","static/ch02b.htm");
+d.add(12,10,"Drawing with the GDI","static/ch02c.htm");
+d.add(13,10,"Seeing What You've Drawn","static/ch02d.htm");
+d.add(14,10,"Loose Ends","static/ch02e.htm");
+d.add(15,5,"Chapter 3 -- The Mouse and the Keyboard","static/ch03a.htm");
+d.add(16,15,"Getting Input from the Mouse","static/ch03b.htm");
+d.add(17,15,"Getting Input from the Keyboard","static/ch03c.htm");
+d.add(18,15,"The VisualKB Application","static/ch03d.htm");
+d.add(19,5,"Chapter 4 -- Menus","static/ch04a.htm");
+d.add(20,19,"Menu Basics","static/ch04b.htm");
+d.add(21,19,"The Shapes Application","static/ch04c.htm");
+d.add(22,19,"Menu Magic","static/ch04d.htm");
+d.add(23,19,"The Colors Application","static/ch04e.htm");
+d.add(24,5,"Chapter 5 -- The MFC Collection Classes","static/ch05a.htm");
+d.add(25,24,"Arrays","static/ch05b.htm");
+d.add(26,24,"Lists","static/ch05c.htm");
+d.add(27,24,"Maps","static/ch05d.htm");
+d.add(28,24,"The Typed Pointer Classes","static/ch05e.htm");
+d.add(29,5,"Chapter 6 -- File I/O and Serialization","static/ch06a.htm");
+d.add(30,29,"The CFile Class","static/ch06b.htm");
+d.add(31,29,"Serialization and the CArchive Class","static/ch06c.htm");
+d.add(32,5,"Chapter 7 -- Controls","static/ch07a.htm");
+d.add(33,32,"The Classic Controls","static/ch07b.htm");
+d.add(34,32,"Advanced Control Programming","static/ch07c.htm");
+d.add(35,5,"Chapter 8 -- Dialog Boxes and Property Sheets","static/ch08a.htm");
+d.add(36,35,"Modal Dialog Boxes and the CDialog Class","static/ch08b.htm");
+d.add(37,35,"Modeless Dialog Boxes","static/ch08c.htm");
+d.add(38,35,"Using a Dialog Box as a Main Window","static/ch08d.htm");
+d.add(39,35,"Property Sheets","static/ch08e.htm");
+d.add(40,35,"The Common Dialogs","static/ch08f.htm");
+d.add(41,0,"Part II: The Document/View Architecture","");
+d.add(42,41,"Chapter 9 -- Documents, Views, and the Single Document Interface","static/ch09a.htm");
+d.add(43,42,"Document/View Fundamentals","static/ch09b.htm");
+d.add(44,42,"Your First Document/View Application","static/ch09c.htm");
+d.add(45,42,"Doc + View = Less Work for You","static/ch09d.htm");
+d.add(46,41,"Chapter 10 -- Scroll Views, HTML Views, and Other View Types","static/ch10a.htm");
+d.add(47,46,"Scroll Views","static/ch10b.htm");
+d.add(48,46,"HTML Views","static/ch10c.htm");
+d.add(49,46,"Tree Views","static/ch10d.htm");
+d.add(50,46,"List Views","static/ch10e.htm");
+d.add(51,46,"Do-It-Yourself Control Views","static/ch10f.htm");
+d.add(52,41,"Chapter 11 -- Multiple Documents and Multiple Views","static/ch11a.htm");
+d.add(53,52,"MFC and the Multiple Document Interface","static/ch11b.htm");
+d.add(54,52,"Splitter Windows","static/ch11c.htm");
+d.add(55,41,"Chapter 12 -- Toolbars, Status Bars, and Rebars","static/ch12a.htm");
+d.add(56,55,"Toolbars","static/ch12b.htm");
+d.add(57,55,"Status Bars","static/ch12c.htm");
+d.add(58,55,"Putting It All Together: The MyWord Application","static/ch12d.htm");
+d.add(59,55,"Rebars","static/ch12e.htm");
+d.add(60,41,"Chapter 13 -- Printing and Print Previewing","static/ch13a.htm");
+d.add(61,60,"Printing with Documents and Views","static/ch13b.htm");
+d.add(62,60,"A Bare-Bones Printing Application","static/ch13c.htm");
+d.add(63,60,"A More Complex Printing Application","static/ch13d.htm");
+d.add(64,60,"Printing Tips and Tricks","static/ch13e.htm");
+d.add(65,0,"Part III: Beyond the Basics","");
+d.add(66,65,"Chapter 14 -- Timers and Idle Processing","static/ch14a.htm");
+d.add(67,66,"Timers","static/ch14b.htm");
+d.add(68,66,"The Clock Application","static/ch14c.htm");
+d.add(69,66,"Idle Processing","static/ch14d.htm");
+d.add(70,65,"Chapter 15 -- Bitmaps, Palettes, and Regions","static/ch15a.htm");
+d.add(71,70,"Palettes","static/ch15b.htm");
+d.add(72,70,"Bitmaps","static/ch15c.htm");
+d.add(73,70,"Regions","static/ch15d.htm");
+d.add(74,65,"Chapter 16 -- The Common Controls","static/ch16a.htm");
+d.add(75,74,"Common Control Fundamentals","static/ch16b.htm");
+d.add(76,74,"Slider, Spin Button, and ToolTip Controls","static/ch16c.htm");
+d.add(77,74,"Image Lists and ComboBoxEx Controls","static/ch16d.htm");
+d.add(78,74,"Progress Controls and Animation Controls","static/ch16e.htm");
+d.add(79,74,"IP Address Controls and Other Data-Entry Controls","static/ch16f.htm");
+d.add(80,65,"Chapter 17 -- Threads and Thread Synchronization","static/ch17a.htm");
+d.add(81,80,"Threads","static/ch17b.htm");
+d.add(82,80,"Thread Synchronization","static/ch17c.htm");
+d.add(83,80,"Odds and Ends","static/ch17d.htm");
+d.add(84,0,"Part IV: COM, OLE, and ActiveX","");
+d.add(85,84,"Chapter 18 -- MFC and the Component Object Model","static/ch18a.htm");
+d.add(86,85,"The Component Object Model","static/ch18b.htm");
+d.add(87,85,"MFC and COM","static/ch18c.htm");
+d.add(88,84,"Chapter 19 -- The Clipboard and OLE Drag-and-Drop","static/ch19a.htm");
+d.add(89,88,"The Legacy Clipboard","static/ch19b.htm");
+d.add(90,88,"The OLE Clipboard","static/ch19c.htm");
+d.add(91,88,"OLE Drag-and-Drop","static/ch19d.htm");
+d.add(92,88,"Putting It All Together: The Widget Application","static/ch19e.htm");
+d.add(93,84,"Chapter 20 -- Automation","static/ch20a.htm");
+d.add(94,93,"Automation Basics","static/ch20b.htm");
+d.add(95,93,"MFC Automation Servers","static/ch20c.htm");
+d.add(96,93,"MFC Automation Clients","static/ch20d.htm");
+d.add(97,84,"Chapter 21 -- ActiveX Controls","static/ch21a.htm");
+d.add(98,97,"ActiveX Control Basics","static/ch21b.htm");
+d.add(99,97,"Building ActiveX Controls","static/ch21c.htm");
+d.add(100,97,"Using ActiveX Controls in MFC Applications","static/ch21d.htm");
+d.add(101,97,"Advanced Topics","static/ch21e.htm");
+d.add(102,0,"About the Author","static/author.htm");
+
+document.write(d);
+//-->
+			</script>
+		</div>
+	</body>
+</html>

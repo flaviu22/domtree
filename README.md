@@ -1,13 +1,12 @@
 ## Overview
 
-A C++ header only library for parsing a `HTML` source.  It is designed to parse and represent HTML data structures. The class `CDomTree` represents the DOM tree and provides parsing functionality. The `CDomTree` class parses input data `HTML` into a hierarchical DOM tree structure, allowing manipulation and serialization of the data.
+A C++ header only library for parsing a `HTML` source.  It is designed to parse and represent HTML/XML-like data structures. The class `CDomTree` represents the DOM tree and provides parsing functionality. The `CDomTree` class parses input data (HTML/XML) into a hierarchical DOM tree structure, allowing manipulation and serialization of the data.
 
 **Public Methods**
 
 **Parsing:**
 
 `void Parse(const std::string& data)`: Parses input data by copying it.
-
 `void Parse(std::string&& data)`: Parses input data by moving it.
 
 **Serialization:**
@@ -15,7 +14,6 @@ A C++ header only library for parsing a `HTML` source.  It is designed to parse 
 
 **Accessors:**
 `std::vector<std::shared_ptr<Tag>>& GetTags()`: Returns a reference to the root tags (modifiable).
-
 `const std::vector<std::shared_ptr<Tag>>& GetTags() const`: Returns a const reference to the root tags.
 
 **Summary**
@@ -34,7 +32,7 @@ You can parse a HTML string as follows:
 ```cpp
 #include "DomTree.h"
 
-	std::ifstream ifs("path_to_file/style_with_comments.html");
+	std::ifstream ifs(std::filesystem::current_path().generic_string() + "/html/style_with_comments.html");
 	std::string html_file((std::istreambuf_iterator<char>(ifs)),
 		(std::istreambuf_iterator<char>()));
 	CDomTree dt{};
@@ -49,6 +47,7 @@ You can easily generate a HTML source using this:
 constexpr std::string_view html_style = R"(
 body {
 	font-family: Arial;
+
 	color: #f9f9ff;
 	background-color:#161B1F;
 }

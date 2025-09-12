@@ -314,6 +314,27 @@ TEST(TestSite, style_with_comments)
 	}
 }
 
+TEST(TestSite, sinis_left)
+{
+	std::ifstream ifs(std::filesystem::current_path().generic_string() + "/html/sinis_left.html");
+	std::string html_file((std::istreambuf_iterator<char>(ifs)),
+		(std::istreambuf_iterator<char>()));
+	CDomTree dt{};
+	dt.Parse(std::move(html_file));
+	EXPECT_EQ(1, dt.GetTags().size());
+	if (1 == dt.GetTags().size())
+	{
+		auto& childs = dt.GetTags().front();
+		EXPECT_EQ(2, childs->m_childs.size());
+		if (2 == childs->m_childs.size())
+		{
+			auto& childs1 = childs->m_childs;
+			EXPECT_EQ(3, childs1.front()->m_childs.size());
+			EXPECT_EQ(1, childs1.back()->m_childs.size());
+		}
+	}
+}
+
 int main()
 {
 	testing::InitGoogleTest();
