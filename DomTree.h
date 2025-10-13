@@ -558,15 +558,18 @@ namespace domtree
 				}
 			}
 
-			ParseAttributes();
+			if (m_currentTag)
+			{
+				ParseAttributes();
 
-			if (isSelfClosingTag)
-			{
-				m_currentTag = m_currentTag->m_parent;
-			}
-			else if (IsWatched(m_currentTag->m_name))
-			{
-				UpdateWatched(m_currentTag->m_name, TagState::opened);
+				if (isSelfClosingTag)
+				{
+					m_currentTag = m_currentTag->m_parent;
+				}
+				else if (IsWatched(m_currentTag->m_name))
+				{
+					UpdateWatched(m_currentTag->m_name, TagState::opened);
+				}
 			}
 
 			if ('>' == m_data[m_bufferIndex] || m_bufferIndex >= m_data.length())
